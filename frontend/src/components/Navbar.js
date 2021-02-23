@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
 import { useOktaAuth } from '@okta/okta-react';
-import manager from '../pages/manager';
-import { container } from 'aws-amplify';
+import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,8 +16,9 @@ const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
   },
-  title: {
+  typography: {
     flexGrow: 1,
+    textAlign: 'left'
   },
 
 }));
@@ -47,15 +47,18 @@ function NavBar() {
       <div>
         <AppBar position="static">
           <Toolbar>
-            <Typography variant="h6" className={classes.title}>
+            <Typography variant="h5" className={classes.typography}>           
               SmartSalary Portal
+              <IconButton>
+                <MonetizationOnIcon/>
+            </IconButton>
             </Typography>
-            <Button component={Link} to="/">Home</Button>
+            <Button component={Link} to="/" color="inherit">Home</Button>
             {authState.isAuthenticated && userInfo && userInfo.groups.includes('HR') &&
-              <Button component={Link} to="/hr">Salary Insights</Button>
+              <Button component={Link} to="/hr" color="inherit">Salary Insights</Button>
             }
             {authState.isAuthenticated && userInfo && userInfo.groups.includes('Manager') &&
-              <Button component={Link} to="/manager">Performance Dashboard</Button>
+              <Button component={Link} to="/manager" color="inherit">Employees List</Button>
             }
             {userText}
           </Toolbar>
