@@ -27,8 +27,8 @@ function NavBar() {
   const classes = useStyles();
   const { oktaAuth, authState } = useOktaAuth();
   const [userInfo, setUserInfo] = useState(null);
-  const login = () => { oktaAuth.signInWithRedirect(); }
-  const logout = () => { oktaAuth.signOut(); }
+  const login = async () =>  oktaAuth.signInWithRedirect(); 
+  const logout = async () =>  oktaAuth.signOut();
 
   const userText = authState.isAuthenticated
     ? <button onClick={ logout }>SignOut</button>
