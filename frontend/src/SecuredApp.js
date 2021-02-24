@@ -26,7 +26,7 @@ function SecuredApp() {
     <Security oktaAuth={oktaAuth} onAuthRequired={onAuthRequired} >
       <Navbar />
       <Route path='/' exact={true} component={Home}/>
-      <Route path='/login' exact={true} component={Login}/>
+      <Route path='/login' render={() => <Login baseUrl={process.env.REACT_APP_OKTA_ORG_URL} />} />
       <SecureRoute path='/HR' component={HR}/>
       <SecureRoute path='/manager' component={manager}/>
       <Route path='/login/callback' component={LoginCallback}/>
