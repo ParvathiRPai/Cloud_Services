@@ -15,12 +15,14 @@ const oktaAuth = new OktaAuth({
     redirectUri: `${window.location.origin}/login/callback`,
   });
 
+
 function SecuredApp() {
-  const history = useHistory();
+    const history = useHistory();
 
   const onAuthRequired = function() {
     history.push('/login')
   }
+ 
 
   return (
     <Security oktaAuth={oktaAuth} onAuthRequired={onAuthRequired} >

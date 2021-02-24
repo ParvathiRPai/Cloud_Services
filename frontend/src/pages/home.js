@@ -22,6 +22,7 @@ const Home = () => {
         <div>
           <br/>
           <h3>Welcome, {userInfo.name}!</h3>
+          <p>{window.location.origin}</p>
         </div>
       )}
     </div>
