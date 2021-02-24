@@ -18,7 +18,7 @@ const Home = () => {
 
   return (
     <div>
-      {userInfo && (
+      {authState.isAuthenticated && userInfo && (
         <div>
           <br/>
           <h3>Welcome, {userInfo.name}!</h3>

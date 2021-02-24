@@ -12,7 +12,7 @@ import manager from './Employees/ListManagers';
 const oktaAuth = new OktaAuth({
     issuer: process.env.REACT_APP_OKTA_ISSUER,
     clientId: process.env.REACT_APP_OKTA_CLIENT_ID,
-    redirectUri: window.location.origin + '/login/callback'
+    redirectUri: `${window.location.origin}/login/callback`,
   });
 
 function SecuredApp() {
@@ -26,7 +26,7 @@ function SecuredApp() {
     <Security oktaAuth={oktaAuth} onAuthRequired={onAuthRequired} >
       <Navbar />
       <Route path='/' exact={true} component={Home}/>
-      <Route path='/login' render={() => <Login baseUrl={process.env.REACT_APP_OKTA_ORG_URL} />} />
+      <Route path='/login' exact={true} component={Login} />
       <SecureRoute path='/HR' component={HR}/>
       <SecureRoute path='/manager' component={manager}/>
       <Route path='/login/callback' component={LoginCallback}/>
