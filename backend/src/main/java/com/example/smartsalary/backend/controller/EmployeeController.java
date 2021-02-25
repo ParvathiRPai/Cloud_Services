@@ -1,12 +1,11 @@
 package com.example.smartsalary.backend.controller;
 
+import com.example.smartsalary.backend.entity.Employee;
 import com.example.smartsalary.backend.entity.Manager;
+import com.example.smartsalary.backend.repository.EmployeeRepository;
 import com.example.smartsalary.backend.repository.ManagerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -14,17 +13,19 @@ import java.util.List;
 @RestController
 @RequestMapping("/smartapp")
 public class EmployeeController {
-
     @Autowired
-    private ManagerRepository managerRepository;
+    private EmployeeRepository  employeeRepository;
+    @GetMapping("/employee")
 
-    // get all employees
-
-    @GetMapping("/manager")
-    public List<Manager> getAllEmployees()
+    public List<Employee> getAllEmployees()
     {
-        return managerRepository.findAll();
+        return employeeRepository.findAll();
     }
 
+    @PostMapping("/employee")
+    public Employee createEmployee(@RequestBody  Employee employee)
+    {
+        return employeeRepository.save(employee);
+    }
 
 }

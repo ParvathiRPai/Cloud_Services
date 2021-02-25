@@ -6,20 +6,24 @@ import Home from './pages/home'
 import Engineer from './pages/engineer'
 import Manager from './pages/manager'
 import HR from './pages/hr'
+import CreateEmployee from './components/CreateEmployee';
+import history from './history';
+
 
 
 // import ListEmployees from './Employees/ListEmployees';
 function App() {
   return (
     <div>
-        <BrowserRouter>
+        <BrowserRouter history={history}>
         <div className="App">
           <Navbar />
           <Switch>
             <Route exact path='/' component={Home}/>
-            <Route exact path='/engineer' component={Engineer}/>
+            <Route path='/engineer' component={Engineer}/>
             <Route exact path='/manager' component={Manager}/>
-            <Route exact path='/hr' component={HR}/>
+            <Route path='/hr' component={HR}/>
+            <Route exact path='/addemployee' component={CreateEmployee}/>
           </Switch>
         </div>
       </BrowserRouter>
