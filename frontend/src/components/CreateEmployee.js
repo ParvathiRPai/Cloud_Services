@@ -6,10 +6,10 @@ export default class CreateEmployee extends Component {
     {
         super(props)
         this.state={
-            managerId:'',
-            firstName:'',
-            lastName: '',
-            newSalary: ''
+            manager_number:'',
+            first_name:'',
+            last_name: '',
+            salary: ''
         }
         this.changeManagerIdHandler=this.changeManagerIdHandler.bind(this);
         this.changeFirstNameHandler=this.changeFirstNameHandler.bind(this);
@@ -19,20 +19,20 @@ export default class CreateEmployee extends Component {
 
     }
     changeManagerIdHandler=(event)=>{
-        this.setState({managerId:event.target.value}); 
+        this.setState({manager_number:event.target.value}); 
     }
     changeFirstNameHandler=(event)=>{
-        this.setState({firstName:event.target.value});
+        this.setState({first_name:event.target.value});
     }
     changeLastNameHandler=(event)=>{
-        this.setState({lastName:event.target.value});
+        this.setState({last_name:event.target.value});
     }
     changeSalaryHandler=(event)=>{
-        this.setState({newSalary:event.target.value});
+        this.setState({salary:event.target.value});
     }
     saveEmployee=(e)=>{
         e.preventDefault();
-        let employee={firstName: this.state.firstName, lastName:this.state.lastName, managerId:this.state.managerId,newSalary:this.state.newSalary}
+        let employee={manager_number:parseInt(this.state.manager_number), first_name: this.state.first_name, last_name:this.state.last_name,salary:parseInt(this.state.salary)}
         console.log('employee =>'+JSON.stringify(employee));
         EmployeeServies.createEmployeee(employee).then(res => {
             this.props.history.push('/manager');
@@ -54,23 +54,23 @@ export default class CreateEmployee extends Component {
                             <form>
                             <div className="form-group">
                                 <label>Manager Id:</label>
-                                <input placeholder="Manager Id" name="managerId" className="form-control"
-                                value={this.state.managerId} onChange={this.changeManagerIdHandler}/>
+                                <input placeholder="Manager Id" name="manager_number" className="form-control"
+                                value={this.state.manager_number} onChange={this.changeManagerIdHandler}/>
                             </div>
                             <div className="form-group">
                                 <label>First Name:</label>
-                                <input placeholder="First Name" name="firstName" className="form-control"
-                                value={this.state.firstName} onChange={this.changeFirstNameHandler}/>
+                                <input placeholder="First Name" name="first_name" className="form-control"
+                                value={this.state.first_name} onChange={this.changeFirstNameHandler}/>
                             </div>
                             <div className="form-group">
                                 <label>Last Name:</label>
-                                <input placeholder="Last Name" name="lastName" className="form-control"
-                                value={this.state.lastName} onChange={this.changeLastNameHandler}/>
+                                <input placeholder="Last Name" name="last_name" className="form-control"
+                                value={this.state.last_name} onChange={this.changeLastNameHandler}/>
                             </div>
                             <div className="form-group">
                                 <label>New Salary: </label>
-                                <input placeholder="New Salary" name="newSalary" className="form-control"
-                                value={this.state.newSalary} onChange={this.changeSalaryHandler}/>
+                                <input placeholder="New Salary" name="salary" className="form-control"
+                                value={this.state.salary} onChange={this.changeSalaryHandler}/>
                             </div>
                             <button className="btn btn-success" onClick={this.saveEmployee}>Save</button>
                             <button className="btn btn-danger" onClick={this.cancel.bind(this)} style={{marginLeft:"10px"}}>Cancel</button>
