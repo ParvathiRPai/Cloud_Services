@@ -15,7 +15,18 @@ const oktaAuth = new OktaAuth({
     redirectUri: `${window.location.origin}/login/callback`,
   });
 
-
+  const oktaSignInConfig = {
+    baseUrl: process.env.REACT_APP_OKTA_ORG_URL,
+    clientId: process.env.REACT_APP_OKTA_CLIENT_ID,
+    redirectUri: window.location.origin + '/login/callback',
+    authParams: {
+      // If your app is configured to use the Implicit Flow
+      // instead of the Authorization Code with Proof of Code Key Exchange (PKCE)
+      // you will need to uncomment the below line
+      // pkce: false
+    }
+  };
+  
 function SecuredApp() {
     const history = useHistory();
 
@@ -28,7 +39,8 @@ function SecuredApp() {
     <Security oktaAuth={oktaAuth} onAuthRequired={onAuthRequired} >
       <Navbar />
       <Route path='/' exact={true} component={Home}/>
-      <Route path='/login' exact={true} component={Login} />
+      {/* <Route path='/login' exact={true} component={Login} /> */}
+      <Route path='/login' render={() => <Login config={oktaSignInConfig} />} />
       <SecureRoute path='/HR' component={HR}/>
       <SecureRoute path='/manager' component={manager}/>
       <Route path='/login/callback' component={LoginCallback}/>
