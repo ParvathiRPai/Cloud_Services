@@ -39,11 +39,11 @@ function SecuredApp() {
     <Security oktaAuth={oktaAuth} onAuthRequired={onAuthRequired} >
       <Navbar />
       <Route path='/' exact={true} component={Home}/>
-      {/* <Route path='/login' exact={true} component={Login} /> */}
-      <Route path='/login' render={() => <Login config={oktaSignInConfig} />} />
+      <Route path='/login/callback' component={LoginCallback}/>
+      {/* <Route path='/login' render={() => <Login config={oktaSignInConfig} />} /> */}
       <SecureRoute path='/HR' component={HR}/>
       <SecureRoute path='/manager' component={manager}/>
-      <Route path='/login/callback' component={LoginCallback}/>
+      
     </Security>
   );
 }
