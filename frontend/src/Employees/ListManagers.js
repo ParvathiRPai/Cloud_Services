@@ -12,7 +12,7 @@ class ListManagers extends React.Component {
         this.editEmployee=this.editEmployee.bind(this);
     }
     editEmployee(id){
-        this.props.history.push('/update-employee/${id}');
+        this.props.history.push(`/add-employee/${id}`);
 
     }
     componentDidMount()
@@ -24,7 +24,7 @@ class ListManagers extends React.Component {
     }
     addEmployee()
     {
-        this.props.history.push('/add-employee')
+        this.props.history.push('/add-employee/-1')
     }
     render() {
         return (

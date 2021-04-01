@@ -46,8 +46,7 @@ function SecuredApp() {
       {/* <Route path='/login' render={() => <Login config={oktaSignInConfig} />} /> */}
       <SecureRoute path='/HR' component={HR}/>
       <SecureRoute path='/manager' component={manager}/>
-      <SecureRoute path='/add-employee' component={CreateEmployee}></SecureRoute>
-      <SecureRoute path='/update-employee/:id' component={UpdateEmployee}></SecureRoute>
+      <SecureRoute path='/add-employee/:id' component={CreateEmployee}></SecureRoute>
     </Security>
   );
 }

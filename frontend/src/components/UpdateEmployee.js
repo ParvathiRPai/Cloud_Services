@@ -37,7 +37,7 @@ export default class UpdateEmployee extends Component {
         e.preventDefault();
         let employee={emailid: this.state.emailId, first_name: this.state.firstName, last_name: this.state.lastName, id: this.state.empId};
         console.log('employee'+ JSON.stringify(employee));
-        ManagerServices.updateEmployee(employee, this.state.empId).then(res => {
+        ManagerServices.updateEmployee(employee, this.state.id).then(res => {
             this.props.history.push('/hr');
         });
     }
