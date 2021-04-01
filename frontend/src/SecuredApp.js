@@ -8,6 +8,8 @@ import Home from './pages/home';
 import Login from './pages/Login';
 import HR from './pages/hr';
 import manager from './Employees/ListManagers';
+import CreateEmployee from './components/CreateEmployee';
+
 
 const oktaAuth = new OktaAuth({
     issuer: process.env.REACT_APP_OKTA_ISSUER,
@@ -43,7 +45,7 @@ function SecuredApp() {
       {/* <Route path='/login' render={() => <Login config={oktaSignInConfig} />} /> */}
       <SecureRoute path='/HR' component={HR}/>
       <SecureRoute path='/manager' component={manager}/>
-      
+      <SecureRoute path='/add-employee/:id' component={CreateEmployee}></SecureRoute>
     </Security>
   );
 }
