@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.ResourceAccessException;
 
 import java.nio.file.ReadOnlyFileSystemException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -54,6 +56,18 @@ public class EmployeeController {
 
         Employee updatedEmployee=employeeRepository.save(employee);
         return ResponseEntity.ok(updatedEmployee);
+    }
+
+    // Delete Employee
+    @DeleteMapping("/employee/{id}")
+    public ResponseEntity<Map<String, Boolean>> deleteEmployee(@PathVariable Long id)
+    {
+        Employee employee= employeeRepository.findById(id)
+                .orElseThrow(() -> new ResourceAccessException("Id not found"));
+        employeeRepository.delete(employee);
+        Map<String, Boolean> response=new HashMap<>();
+        response.put("deleted", Boolean.TRUE);
+        return ResponseEntity.ok(response);
     }
 
 

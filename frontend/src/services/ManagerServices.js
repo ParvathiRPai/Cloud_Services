@@ -22,6 +22,10 @@ class ManagerServices {
         return axios.put(Manager_List_URL+'/'+employeeId, employee);
 
     }
+    deleteEmployee(employeeId)
+    {
+        return axios.delete(Manager_List_URL+'/'+employeeId);
+    }
 }
 
 export default new ManagerServices()

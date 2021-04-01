@@ -9,7 +9,6 @@ import Login from './pages/Login';
 import HR from './pages/hr';
 import manager from './Employees/ListManagers';
 import CreateEmployee from './components/CreateEmployee';
-import UpdateEmployee from './components/UpdateEmployee';
 
 
 const oktaAuth = new OktaAuth({

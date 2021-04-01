@@ -10,9 +10,18 @@ class ListManagers extends React.Component {
         }
         this.addEmployee=this.addEmployee.bind(this);
         this.editEmployee=this.editEmployee.bind(this);
+        this.deleteEmployee=this.deleteEmployee.bind(this);
     }
     editEmployee(id){
         this.props.history.push(`/add-employee/${id}`);
+
+    }
+    deleteEmployee(id)
+    {
+        ManagerServices.deleteEmployee(id).then(res => {
+            this.setState({employees:this.state.employees.filter(employee => employee.id != id)});
+
+        });
 
     }
     componentDidMount()
@@ -31,11 +40,11 @@ class ListManagers extends React.Component {
             <div>
             <h2 className ="text-center">Employees List</h2>
             <div className="row">
-                <button className="btn-btn-primary" onClick={this.addEmployee}>Add Employee</button>
+                <button style={{marginLeft: "60px"}} className="btn-btn-primary" onClick={this.addEmployee}>Add Employee</button>
             </div>
 
             <div className="row">
-                    <table className="table table-striped">
+                    <table className="table table-striped" style={{marginLeft: "40px", marginRight:"60px"}} >
                         <thead>
                             <tr>
                                 <th>Employee First Name</th>
@@ -53,11 +62,11 @@ class ListManagers extends React.Component {
                                 <th>{employee.last_name}</th>
                                 <th>{employee.emailid}</th>
                                 <td>
-                                    <button onClick={()=> this.editEmployee(employee.id)} className="btn btn-info">Update</button>
+                                    <button style={{marginLeft: "150px"}} onClick={()=> this.editEmployee(employee.id)} className="btn btn-info">Update</button>
+                                    <button style={{marginLeft: "10px"}} onClick={()=> this.deleteEmployee(employee.id)} className="btn btn-danger">Delete</button>
                                 </td>
                                 </tr>
                             )
-
                         }
                         </tbody>
                     </table>
