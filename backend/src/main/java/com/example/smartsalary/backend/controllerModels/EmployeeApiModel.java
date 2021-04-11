@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 public class EmployeeApiModel {
+    public long id;
     public String  first_name;
     public String last_name;
     public String  emailid;

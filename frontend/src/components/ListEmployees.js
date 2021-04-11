@@ -52,7 +52,7 @@ class ListEmployees extends React.Component {
         if(this.state.isMyInfo)
         {
             ManagerServices.getEmployeeByEmail(this.state.empEmail).then((res)=>{
-                this.setState({employees: res.data});
+                this.setState({employees: [res.data]});
             });    
         }
         else if(this.state.isManager)
@@ -100,7 +100,7 @@ class ListEmployees extends React.Component {
                                     <th>Employee First Name</th>
                                     <th>Employee Last Name</th>
                                     <th>Email</th>
-                                    <th>Manager</th>
+                                    <th>Manager Email</th>
                                     <th>Salary</th>
 
                                     {this.state.isHr &&
@@ -116,7 +116,7 @@ class ListEmployees extends React.Component {
                                     <th>{employee.first_name}</th>
                                     <th>{employee.last_name}</th>
                                     <th>{employee.emailid}</th>
-                                    <th>{employee.manager}</th>
+                                    <th>{employee.managerEmail}</th>
                                     <th>{employee.salary}</th>
 
                                     {this.state.isHr &&

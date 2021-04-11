@@ -13,6 +13,7 @@ import java.nio.file.ReadOnlyFileSystemException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController
@@ -22,11 +23,27 @@ public class EmployeeController {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    private EmployeeApiModel mapEmployee(Employee employee)
+    {
+        Employee manager= employeeRepository.findById(employee.managerId)
+                .orElseThrow(() -> new ResourceAccessException("Id not found"));
+
+        var emp = new EmployeeApiModel();
+        emp.id = employee.id;
+        emp.managerEmail = manager.emailid;
+        emp.emailid = employee.emailid;
+        emp.first_name = employee.first_name;
+        emp.last_name = employee.last_name;
+        emp.salary = employee.salary;
+        return emp;
+    }
     // get all employees
     @GetMapping("/employee")
-    public List<Employee> getAllEmployees()
+    public List<EmployeeApiModel> getAllEmployees()
     {
-        return employeeRepository.findAll();
+        var employees = employeeRepository.findAll();
+        var emps = employees.stream().map(employee -> {return mapEmployee(employee);}).collect(Collectors.toList());
+        return emps;
     }
 
     //Create employee rest api
@@ -46,32 +63,36 @@ public class EmployeeController {
     }
 
     @GetMapping("/employee/{id}")
-    public ResponseEntity<Employee> getEmployeeById(@PathVariable Long id)
+    public ResponseEntity<EmployeeApiModel> getEmployeeById(@PathVariable Long id)
     {
         Employee employee= employeeRepository.findById(id)
                 .orElseThrow(() -> new ResourceAccessException("Id not found"));
-        return ResponseEntity.ok(employee);
+        var emp = mapEmployee(employee);
+        return ResponseEntity.ok(emp);
 
     }
 
     @GetMapping("/employee/emails/{email}")
-    public ResponseEntity<Employee> getEmployeeByEmail(@PathVariable String email)
+    public ResponseEntity<EmployeeApiModel> getEmployeeByEmail(@PathVariable String email)
     {
         Employee employee= employeeRepository.findByEmailid(email)
                 .orElseThrow(() -> new ResourceAccessException("Id not found"));
-        return ResponseEntity.ok(employee);
+        var emp = mapEmployee(employee);
+        return ResponseEntity.ok(emp);
 
     }
 
     @GetMapping("/employee/directReports/{email}")
-    public ResponseEntity<List<Employee>> getEmployeeByManager(@PathVariable String email)
+    public ResponseEntity<List<EmployeeApiModel>> getEmployeeByManager(@PathVariable String email)
     {
         Employee manager = employeeRepository.findByEmailid(email)
                 .orElseThrow(() -> new ResourceAccessException("Id not found"));
 
         List<Employee> employee= employeeRepository.findAllByManagerId(manager.id)
                 .orElseThrow(() -> new ResourceAccessException("Id not found"));
-        return ResponseEntity.ok(employee);
+        var emps = employee.stream().map(emp -> {return mapEmployee(emp);}).collect(Collectors.toList());
+
+        return ResponseEntity.ok(emps);
 
     }
 

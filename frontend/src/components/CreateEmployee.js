@@ -64,7 +64,7 @@ export default class CreateEmployee extends Component {
 
     saveEmployee=(e)=>{
         e.preventDefault();
-        let employee={emailid: this.state.emailId, first_name: this.state.firstName, last_name: this.state.lastName};
+        let employee={emailid: this.state.emailId, first_name: this.state.firstName, last_name: this.state.lastName, salary: this.state.salary, managerEmail: this.state.managerEmail};
         console.log('employee'+ JSON.stringify(employee));
     
 

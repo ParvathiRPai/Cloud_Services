@@ -52,8 +52,12 @@ function SecuredApp() {
       <Route path='/login/callback' component={LoginCallback}/>
       {/* <Route path='/login' render={() => <Login config={oktaSignInConfig} />} /> */}
       <SecureRoute path='/hr' component={HR}/>
-      <SecureRoute path='/myInfo' render={() => <MyInfo myEmail={userInfo.email}/>}/>
-      <SecureRoute path='/manager' component={Manager}/>
+      {userInfo && userInfo.email && 
+        <div>
+          <SecureRoute path='/myInfo' render={() => <MyInfo myEmail={userInfo.email}/>}/>
+          <SecureRoute path='/manager' render={() => <Manager myEmail={userInfo.email}/>}/>
+        </div>
+      }
       {/* <SecureRoute path='/add-employee/:id' component={CreateEmployee}></SecureRoute> */}
     </Security>
   );
