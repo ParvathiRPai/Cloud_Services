@@ -25,12 +25,21 @@ public class EmployeeController {
 
     private EmployeeApiModel mapEmployee(Employee employee)
     {
-        Employee manager= employeeRepository.findById(employee.managerId)
-                .orElseThrow(() -> new ResourceAccessException("Id not found"));
+        String managerEmailId;
+        try
+        {
+            Employee manager= employeeRepository.findById(employee.managerId)
+                    .orElseThrow(() -> new ResourceAccessException("Id not found"));
+            managerEmailId = manager.getEmailid();
+        }
+        catch(Exception ex)
+        {
+            managerEmailId = "None";
+        }
 
         var emp = new EmployeeApiModel();
         emp.id = employee.id;
-        emp.managerEmail = manager.emailid;
+        emp.managerEmail = managerEmailId;
         emp.emailid = employee.emailid;
         emp.first_name = employee.first_name;
         emp.last_name = employee.last_name;
@@ -50,10 +59,19 @@ public class EmployeeController {
     @PostMapping("/employee")
     public Employee createEmployee(@RequestBody EmployeeApiModel employee)
     {
-        Employee manager= employeeRepository.findByEmailid(employee.managerEmail)
-                .orElseThrow(() -> new ResourceAccessException("Id not found"));
+        long managerId;
+        try
+        {
+            Employee manager= employeeRepository.findByEmailid(employee.managerEmail)
+                    .orElseThrow(() -> new ResourceAccessException("Id not found"));
+            managerId = manager.getId();
+        }
+        catch(Exception ex)
+        {
+            managerId = 0;
+        }
         var emp = new Employee();
-        emp.managerId = manager.id;
+        emp.managerId = managerId;
         emp.emailid = employee.emailid;
         emp.first_name = employee.first_name;
         emp.last_name = employee.last_name;
@@ -103,13 +121,21 @@ public class EmployeeController {
     {
         Employee employee= employeeRepository.findById(id)
                 .orElseThrow(() -> new ResourceAccessException("Id not found"));
-        Employee manager= employeeRepository.findByEmailid(employeeDetails.managerEmail)
-                .orElseThrow(() -> new ResourceAccessException("Id not found"));
+        long managerId;
+        try {
+            Employee manager= employeeRepository.findByEmailid(employeeDetails.managerEmail)
+                    .orElseThrow(() -> new ResourceAccessException("Id not found"));
+            managerId = manager.getId();
+        }
+        catch(Exception ex)
+        {
+            managerId = 0;
+        }
 
         employee.setFirst_name(employeeDetails.first_name);
         employee.setLast_name(employeeDetails.last_name);
         employee.setEmailid(employeeDetails.emailid);
-        employee.setManagerId(manager.getId());
+        employee.setManagerId(managerId);
         employee.setSalary(employeeDetails.salary);
 
         Employee updatedEmployee=employeeRepository.save(employee);
