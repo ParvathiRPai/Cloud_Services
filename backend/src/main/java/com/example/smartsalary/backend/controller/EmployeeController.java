@@ -98,16 +98,19 @@ public class EmployeeController {
 
     // Update Employee
     @PutMapping("/employee/{id}")
-    public ResponseEntity<Employee> updateEmployee(@PathVariable Long id, @RequestBody Employee employeeDetails)
+    public ResponseEntity<Employee> updateEmployee(@PathVariable Long id,
+                                                   @RequestBody EmployeeApiModel employeeDetails)
     {
         Employee employee= employeeRepository.findById(id)
                 .orElseThrow(() -> new ResourceAccessException("Id not found"));
+        Employee manager= employeeRepository.findByEmailid(employeeDetails.managerEmail)
+                .orElseThrow(() -> new ResourceAccessException("Id not found"));
 
-        employee.setFirst_name(employeeDetails.getFirst_name());
-        employee.setLast_name(employeeDetails.getLast_name());
-        employee.setEmailid(employeeDetails.getEmailid());
-        employee.setManagerId(employeeDetails.getManagerId());
-        employee.setSalary(employeeDetails.getSalary());
+        employee.setFirst_name(employeeDetails.first_name);
+        employee.setLast_name(employeeDetails.last_name);
+        employee.setEmailid(employeeDetails.emailid);
+        employee.setManagerId(manager.getId());
+        employee.setSalary(employeeDetails.salary);
 
         Employee updatedEmployee=employeeRepository.save(employee);
         return ResponseEntity.ok(updatedEmployee);

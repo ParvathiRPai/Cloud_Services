@@ -1,7 +1,8 @@
 import React,  { Component } from 'react'
 import ManagerServices from '../services/ManagerServices'
 import {withRouter} from 'react-router-dom';
-import CreateEmployee from './CreateEmployee';
+import CreateUpdateEmployee from './CreateUpdateEmployee';
+import { Link } from 'react-router-dom';
 
 class ListEmployees extends React.Component {
     constructor(props){
@@ -21,6 +22,7 @@ class ListEmployees extends React.Component {
         this.editEmployee=this.editEmployee.bind(this);
         this.deleteEmployee=this.deleteEmployee.bind(this);
         this.handleCreateUpdateCompletion=this.handleCreateUpdateCompletion.bind(this);
+        this.loadEmployees=this.loadEmployees.bind(this);
     }
 
     handleCreateUpdateCompletion()
@@ -28,6 +30,7 @@ class ListEmployees extends React.Component {
         this.setState({
             isCreateView: 0,
         });
+        this.loadEmployees();
     }
 
     editEmployee(id){
@@ -47,7 +50,7 @@ class ListEmployees extends React.Component {
         });
 
     }
-    componentDidMount()
+    loadEmployees()
     {
         if(this.state.isMyInfo)
         {
@@ -68,6 +71,10 @@ class ListEmployees extends React.Component {
             });
         }
     }
+    componentDidMount()
+    {
+        this.loadEmployees();
+    }
     addEmployee()
     {
         this.setState({
@@ -76,11 +83,23 @@ class ListEmployees extends React.Component {
         });
         // this.props.history.push('/add-employee/-1')
     }
+    addEmployeeButton()
+    {
+        if (this.state.isHr)
+        {
+            return (
+                <div>
+                    <button style={{marginLeft: "60px"}} className="btn-btn-primary" onClick={this.addEmployee}>Add Employee</button>
+                    <a target="_blank" href="https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/8041837329188487/1509371316070823/419884982547132/latest.html"><button className= "btn btn-primary">Link to HR Dashboard</button></a>
+                </div>
+            )
+        }
+    }
     render() {
         let renderedView;
         if(this.state.isCreateView)
         {
-            renderedView = <CreateEmployee
+            renderedView = <CreateUpdateEmployee
                 type={this.state.createViewType}
                 id={this.state.createViewId}
                 handleCompletion={this.handleCreateUpdateCompletion}/>;
@@ -91,7 +110,10 @@ class ListEmployees extends React.Component {
                 <div>
                     <h2 className ="text-center">Employees List</h2>
                     <div className="row">
-                        <button style={{marginLeft: "60px"}} className="btn-btn-primary" onClick={this.addEmployee}>Add Employee</button>
+                    {/* <button style={{marginLeft: "60px"}} className="btn-btn-primary" onClick={this.addEmployee}>Add Employee</button> */}
+                    {
+                        this.addEmployeeButton()
+                    }
                     </div>
                     <div className="row">
                         <table className="table table-striped" style={{marginLeft: "40px", marginRight:"60px"}} >

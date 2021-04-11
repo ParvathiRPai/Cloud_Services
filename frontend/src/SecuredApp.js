@@ -7,10 +7,11 @@ import Navbar from './components/Navbar';
 import Home from './pages/home';
 import Manager from './pages/manager';
 import MyInfo from './pages/myInfo';
-import Login from './pages/Login';
+// import Login from './pages/Login';
 import HR from './pages/hr';
-import ListEmployees from './components/ListEmployees';
-import CreateEmployee from './components/CreateEmployee';
+import { useOktaAuth } from '@okta/okta-react';
+// import ListEmployees from './components/ListEmployees';
+// import CreateUpdateEmployee from './components/CreateUpdateEmployee';
 
 
 const oktaAuth = new OktaAuth({
@@ -34,14 +35,18 @@ const oktaAuth = new OktaAuth({
 function SecuredApp() {
     const history = useHistory();
     const [userInfo, setUserInfo] = useState(null);
+    // const oktaAuth2= useOktaAuth();
 
   const onAuthRequired = function() {
     history.push('/login')
   }
   
   useEffect(() => {
+    if(oktaAuth && oktaAuth.authState && oktaAuth.authState.isAuthenticated)
+    {
       oktaAuth.getUser().then(setUserInfo);
-    }, [oktaAuth]);
+    }
+    },[oktaAuth]);
 
  
 
@@ -52,13 +57,17 @@ function SecuredApp() {
       <Route path='/login/callback' component={LoginCallback}/>
       {/* <Route path='/login' render={() => <Login config={oktaSignInConfig} />} /> */}
       <SecureRoute path='/hr' component={HR}/>
-      {userInfo && userInfo.email && 
-        <div>
-          <SecureRoute path='/myInfo' render={() => <MyInfo myEmail={userInfo.email}/>}/>
+      {/* {userInfo && userInfo.email && 
+        <div> */}
+          <SecureRoute path='/myInfo' render={() => 
+            {
+              return (<MyInfo myEmail={userInfo.email}/>);
+            }
+          }/>
           <SecureRoute path='/manager' render={() => <Manager myEmail={userInfo.email}/>}/>
-        </div>
-      }
-      {/* <SecureRoute path='/add-employee/:id' component={CreateEmployee}></SecureRoute> */}
+        {/* </div>
+      } */}
+      {/* <SecureRoute path='/add-employee/:id' component={CreateUpdateEmployee}></SecureRoute> */}
     </Security>
   );
 }

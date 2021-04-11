@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ManagerServices from '../services/ManagerServices';
 
-export default class CreateEmployee extends Component {
+export default class CreateUpdateEmployee extends Component {
     constructor(props)
     {
         super(props)
@@ -10,7 +10,7 @@ export default class CreateEmployee extends Component {
             firstName: '',
             lastName: '',
             managerEmail: '',
-            salary: '',
+            salary: 0.0,
             id: this.props.id,
             isCreate: this.props.type === "create",
             isUpdate: this.props.type === "update",
@@ -36,9 +36,9 @@ export default class CreateEmployee extends Component {
                     let employee=res.data;
                     this.setState(
                     {
-                        first_name: employee.firstName,
-                        last_name: employee.lastName, 
-                        emailid: employee.emailId,
+                        firstName: employee.first_name,
+                        lastName: employee.last_name, 
+                        emailId: employee.emailid,
                         managerEmail: employee.managerEmail,
                         salary: employee.salary,
                     });
@@ -64,7 +64,12 @@ export default class CreateEmployee extends Component {
 
     saveEmployee=(e)=>{
         e.preventDefault();
-        let employee={emailid: this.state.emailId, first_name: this.state.firstName, last_name: this.state.lastName, salary: this.state.salary, managerEmail: this.state.managerEmail};
+        let employee={
+            emailid: this.state.emailId,
+            first_name: this.state.firstName,
+            last_name: this.state.lastName,
+            salary: this.state.salary,
+            managerEmail: this.state.managerEmail};
         console.log('employee'+ JSON.stringify(employee));
     
 
@@ -115,17 +120,17 @@ export default class CreateEmployee extends Component {
                 <form>
                     <div className="form-group">
                         <label>First Name</label>
-                        <input placeholder="First Name" name="first_name" className="form-control"
+                        <input placeholder="First Name" name="firstName" className="form-control"
                         value={this.state.firstName} onChange={this.changeFirstNameHandler}/>
                     </div>
                     <div className="form-group">
                         <label>Last Name</label>
-                        <input placeholder="First Name" name="last_name" className="form-control"
+                        <input placeholder="First Name" name="lastName" className="form-control"
                         value={this.state.lastName} onChange={this.changeLastNameHandler}/>
                     </div>
                     <div className="form-group">
                         <label>Email Address</label>
-                        <input placeholder="Email Address" name="emailid" className="form-control"
+                        <input placeholder="Email Address" name="emailId" className="form-control"
                         value={this.state.emailId} onChange={this.changeEmailId}/>
                     </div>
                     <div className="form-group">
