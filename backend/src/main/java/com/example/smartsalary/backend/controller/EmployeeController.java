@@ -1,5 +1,6 @@
 package com.example.smartsalary.backend.controller;
 
+import com.example.smartsalary.backend.controllerModels.EmployeeApiModel;
 import com.example.smartsalary.backend.entity.Employee;
 import com.example.smartsalary.backend.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +31,18 @@ public class EmployeeController {
 
     //Create employee rest api
     @PostMapping("/employee")
-    public Employee createEmployee(@RequestBody  Employee employee)
+    public Employee createEmployee(@RequestBody EmployeeApiModel employee)
     {
-        return employeeRepository.save(employee);
+        Employee manager= employeeRepository.findByEmailid(employee.managerEmail)
+                .orElseThrow(() -> new ResourceAccessException("Id not found"));
+        var emp = new Employee();
+        emp.managerId = manager.id;
+        emp.emailid = employee.emailid;
+        emp.first_name = employee.first_name;
+        emp.last_name = employee.last_name;
+        emp.salary = employee.salary;
+
+        return employeeRepository.save(emp);
     }
 
     @GetMapping("/employee/{id}")
@@ -43,6 +53,28 @@ public class EmployeeController {
         return ResponseEntity.ok(employee);
 
     }
+
+    @GetMapping("/employee/emails/{email}")
+    public ResponseEntity<Employee> getEmployeeByEmail(@PathVariable String email)
+    {
+        Employee employee= employeeRepository.findByEmailid(email)
+                .orElseThrow(() -> new ResourceAccessException("Id not found"));
+        return ResponseEntity.ok(employee);
+
+    }
+
+    @GetMapping("/employee/directReports/{email}")
+    public ResponseEntity<List<Employee>> getEmployeeByManager(@PathVariable String email)
+    {
+        Employee manager = employeeRepository.findByEmailid(email)
+                .orElseThrow(() -> new ResourceAccessException("Id not found"));
+
+        List<Employee> employee= employeeRepository.findAllByManagerId(manager.id)
+                .orElseThrow(() -> new ResourceAccessException("Id not found"));
+        return ResponseEntity.ok(employee);
+
+    }
+
     // Update Employee
     @PutMapping("/employee/{id}")
     public ResponseEntity<Employee> updateEmployee(@PathVariable Long id, @RequestBody Employee employeeDetails)
@@ -53,6 +85,8 @@ public class EmployeeController {
         employee.setFirst_name(employeeDetails.getFirst_name());
         employee.setLast_name(employeeDetails.getLast_name());
         employee.setEmailid(employeeDetails.getEmailid());
+        employee.setManagerId(employeeDetails.getManagerId());
+        employee.setSalary(employeeDetails.getSalary());
 
         Employee updatedEmployee=employeeRepository.save(employee);
         return ResponseEntity.ok(updatedEmployee);
@@ -69,8 +103,4 @@ public class EmployeeController {
         response.put("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);
     }
-
-
-
-
 }

@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
+import ListEmployees from '../components/ListEmployees'
 
-export default class manager extends Component {
+export default class Manager extends Component {
     render() {
         return (
             <div>
-                <h1>Manager</h1>
+                <ListEmployees isManager="1"/>
             </div>
         )
     }

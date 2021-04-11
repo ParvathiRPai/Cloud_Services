@@ -3,7 +3,7 @@ import ListEmployees from '../components/ListEmployees'
 export default class hr extends Component {
     render() {
         return (
-          <ListEmployees isHr="1"/>
+          <ListEmployees isMyInfo="1" empEmail={this.props.myEmail}/>
         )
     }
 }
