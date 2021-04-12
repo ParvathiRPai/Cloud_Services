@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useOktaAuth } from "@okta/okta-react";
 import ListEmployees from '../components/ListEmployees'
 
-const Manager = () => {
+const MyInfo = () => {
     const { oktaAuth, authState } = useOktaAuth();
     const [userInfo, setUserInfo] = useState(null);
 
@@ -18,13 +18,13 @@ const Manager = () => {
 
     return (
         <div>
-            {authState.isAuthenticated && userInfo && (
-                <div>
-                    <ListEmployees isManager="1" empEmail={userInfo.email}/>
-                </div>
-            )}
+        {authState.isAuthenticated && userInfo && (
+            <div>
+                <ListEmployees isMyInfo="1" empEmail={userInfo.email}/>
+            </div>
+        )}
         </div>
     )
 }
 
-export default Manager;
+export default MyInfo;

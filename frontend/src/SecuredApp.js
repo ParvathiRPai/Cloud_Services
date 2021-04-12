@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { Route } from 'react-router-dom';
 import { LoginCallback, SecureRoute, Security } from '@okta/okta-react';
 import { OktaAuth } from '@okta/okta-auth-js';
 import Navbar from './components/Navbar';
 import Home from './pages/home';
-import Login from './pages/Login';
+import Manager from './pages/manager';
+import MyInfo from './pages/myInfo';
+// import Login from './pages/Login';
 import HR from './pages/hr';
-import manager from './Employees/ListManagers';
-import CreateEmployee from './components/CreateEmployee';
+// import { useOktaAuth } from '@okta/okta-react';
+// import ListEmployees from './components/ListEmployees';
+// import CreateUpdateEmployee from './components/CreateUpdateEmployee';
 
 
 const oktaAuth = new OktaAuth({
@@ -31,10 +34,20 @@ const oktaAuth = new OktaAuth({
   
 function SecuredApp() {
     const history = useHistory();
+    // const [userInfo, setUserInfo] = useState(null);
+    // const oktaAuth2= useOktaAuth();
 
   const onAuthRequired = function() {
     history.push('/login')
   }
+  
+  // useEffect(() => {
+  //   if(oktaAuth && oktaAuth.authState && oktaAuth.authState.isAuthenticated)
+  //   {
+  //     oktaAuth.getUser().then(setUserInfo);
+  //   }
+  //   },[oktaAuth]);
+
  
 
   return (
@@ -43,9 +56,14 @@ function SecuredApp() {
       <Route path='/' exact={true} component={Home}/>
       <Route path='/login/callback' component={LoginCallback}/>
       {/* <Route path='/login' render={() => <Login config={oktaSignInConfig} />} /> */}
-      <SecureRoute path='/HR' component={HR}/>
-      <SecureRoute path='/manager' component={manager}/>
-      <SecureRoute path='/add-employee/:id' component={CreateEmployee}></SecureRoute>
+      <SecureRoute path='/hr' component={HR}/>
+      {/* {userInfo && userInfo.email && 
+        <div> */}
+          <SecureRoute path='/myInfo' component={MyInfo}/>
+          <SecureRoute path='/manager' component={Manager}/>
+        {/* </div>
+      } */}
+      {/* <SecureRoute path='/add-employee/:id' component={CreateUpdateEmployee}></SecureRoute> */}
     </Security>
   );
 }

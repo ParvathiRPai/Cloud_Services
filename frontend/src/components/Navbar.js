@@ -55,11 +55,14 @@ function NavBar() {
             </IconButton>
             </Typography>
             <Button component={Link} to="/" color="inherit">Home</Button>
+            {authState.isAuthenticated && userInfo &&
+              <Button component={Link} to="/myInfo" color="inherit">My-Info</Button>
+            }
             {authState.isAuthenticated && userInfo && userInfo.groups.includes('HR') &&
-              <Button component={Link} to="/hr" color="inherit">Salary Insights</Button>
+              <Button component={Link} to="/hr" color="inherit">Salary-Insights</Button>
             }
             {authState.isAuthenticated && userInfo && userInfo.groups.includes('Manager') &&
-              <Button component={Link} to="/manager" color="inherit">Employees List</Button>
+              <Button component={Link} to="/manager" color="inherit">My-Directs</Button>
             }
             {userText}
           </Toolbar>

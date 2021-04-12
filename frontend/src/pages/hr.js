@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import EmployeeList from '../Employees/ListManagers'
-export default class hr extends Component {
+import ListEmployees from '../components/ListEmployees'
+export default class HR extends Component {
     render() {
         return (
-          <EmployeeList/>
+          <ListEmployees isHr="1"/>
         )
     }
 }

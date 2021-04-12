@@ -17,6 +17,17 @@ class ManagerServices {
         return axios.get(Manager_List_URL+'/'+employeeId);
 
     }
+
+    getEmployeeByEmail(empEmail){
+        return axios.get(Manager_List_URL+'/emails/'+empEmail);
+
+    }
+
+    getEmployeeByManager(mgrEmail){
+        return axios.get(Manager_List_URL+'/directReports/'+ mgrEmail);
+
+    }
+
     updateEmployee(employee, employeeId)
     {
         return axios.put(Manager_List_URL+'/'+employeeId, employee);
