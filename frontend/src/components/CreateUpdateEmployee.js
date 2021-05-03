@@ -10,7 +10,7 @@ export default class CreateUpdateEmployee extends Component {
             firstName: '',
             lastName: '',
             managerEmail: '',
-            salary: 0.0,
+            salary: '',
             id: this.props.id,
             isCreate: this.props.type === "create",
             isUpdate: this.props.type === "update",
