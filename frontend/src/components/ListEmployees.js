@@ -90,7 +90,7 @@ class ListEmployees extends React.Component {
             return (
                 <div>
                     <button style={{marginLeft: "60px"}} className="btn-btn-primary" onClick={this.addEmployee}>Add Employee</button>
-                    <button className= "btn btn-primary" style={{marginLeft: "60px"}}><a style={{color: "white"}} href="https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/8041837329188487/1509371316070823/419884982547132/latest.html">Link to HR Dashboard</a></button>
+                    <button className= "btn btn-primary" style={{marginLeft: "60px"}}><a style={{color: "white"}} href="https://community.cloud.databricks.com/?o=8041837329188487#notebook/1509371316070823/dashboard/3190104837882576/present">Link to HR Dashboard</a></button>
                 </div>
             )
         }
