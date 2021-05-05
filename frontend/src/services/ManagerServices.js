@@ -1,6 +1,6 @@
 import axios from 'axios';
-const Manager_List_URL="http://localhost:8080/smartapp/employee";
-
+// const Manager_List_URL="http://localhost:8080/smartapp/employee";
+const Manager_List_URL=`http://${process.env.REACT_APP_API_DOMAIN}:${process.env.REACT_APP_API_PORT}/smartapp/employee`
 
 
 class ManagerServices {

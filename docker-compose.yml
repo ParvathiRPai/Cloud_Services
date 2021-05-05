@@ -1,0 +1,24 @@
+x-aws-loadbalancer: "arn:aws:elasticloadbalancing:us-east-1:274412100151:loadbalancer/net/testlb1/ad60a16c04b0615e"
+version: '3.0'
+services:
+  backend-ser:
+    image: public.ecr.aws/x4y9x2u7/pavasjsuproj:backend-latest 
+    environment:
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_DBNAME=${MYSQL_DBNAME}
+      - MYSQL_USERNAME=${MYSQL_USERNAME}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    ports:
+      - "8080:8080"
+  frontend-ser:
+    image: public.ecr.aws/x4y9x2u7/pavasjsuproj:frontend-latest
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_OKTA_ORG_URL=${REACT_APP_OKTA_ORG_URL}
+      - REACT_APP_OKTA_CLIENT_ID=${REACT_APP_OKTA_CLIENT_ID}
+      - REACT_APP_OKTA_ISSUER=${REACT_APP_OKTA_ISSUER}
+      - REACT_APP_API_DOMAIN=${REACT_APP_API_DOMAIN}
+      - REACT_APP_API_PORT=${REACT_APP_API_PORT}
+    depends_on:
+      - backend-ser
