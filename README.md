@@ -23,8 +23,29 @@ Our application has following features –
 
 
 ### Architecture
-
+![](Documentation/Architecture.png)
 ### Application UI screenshots
+* Landing Page
+![](Documentation/images/employee/1.png)
+* Employee
+![](Documentation/images/employee/2.png)
+![](Documentation/images/employee/3.png)
+![](Documentation/images/employee/4.png)
+* Manager
+![](Documentation/images/manager/1.png)
+![](Documentation/images/manager/2.png)
+![](Documentation/images/manager/3.png)
+![](Documentation/images/manager/4.png)
+![](Documentation/images/manager/5.png)
+* HR
+![](Documentation/images/HR/1.png)
+![](Documentation/images/HR/2.png)
+![](Documentation/images/HR/3.png)
+![](Documentation/images/HR/4.png)
+![](Documentation/images/HR/5.png)
+![](Documentation/images/HR/6.png)
+![](Documentation/images/HR/7.png)
+![](Documentation/images/HR/8.png)
 
 ### Technology and services Stack
 * Okta - Single Page Application
@@ -40,6 +61,14 @@ Our application has following features –
 
 
 #### Deployment
+* ECR
+![](Documentation/images/ECR/2.png)
+* ECS Cluster
+![](Documentation/images/ECS/1.png)
+![](Documentation/images/ECS/2.png)
+* Services
+![](Documentation/images/ECS/3.png)
+![](Documentation/images/ECS/5.png)
 
 
 #### For Front-end setup
