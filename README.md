@@ -71,6 +71,20 @@ Our application has following features –
 ![](Documentation/images/ECS/5.png)
 
 
+### CI/CD
+ 1. We have 3 environments created for CI/CD as shown in the figure
+   ![](Documentation/Local/../images/Local/1.png)
+
+ 2. The ecslocal environment is for local ECS CI/CD setup
+ 3. myecscontext is for registering our service to ECR then to ECS.
+ 4. The context switch could be done as shown in the figure
+     ![](Documentation/Local/../images/Local/3.png)
+ 5. Docker push pusehes the images to ECR and ECS as shown in the figure
+     ![](Documentation/Local/../images/Local/2.png)
+    
+   
+
+
 #### For Front-end setup
 ##### Install Dependencies
 `npm install`
