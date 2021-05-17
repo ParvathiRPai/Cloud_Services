@@ -21,6 +21,7 @@ Our application has following features –
 * Manager Dashboard – Own Information, List of employees reporting to her/him.
 * HR Dashboard- List of all Employees, perform actions like update, delete and add employees, HR department specific dashboard to view Employee Trends – insights into employee demographics based on gender, age and salary difference by age.
 
+#### [Project Report](Documentation/CMPE282-Project_Report.pdf)
 
 ### Architecture
 ![](Documentation/Architecture.png)
